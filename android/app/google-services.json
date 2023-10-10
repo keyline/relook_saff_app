@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "272628901491",
+    "project_id": "relook-13240",
+    "storage_bucket": "relook-13240.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272628901491:android:821a53e61c5a06926aac06",
+        "android_client_info": {
+          "package_name": "com.relook_guest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC64cwL2YJVrkCxI0757DgEdU4tErOietE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272628901491:android:c2eed556d2f66b8f6aac06",
+        "android_client_info": {
+          "package_name": "com.relook_staff"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC64cwL2YJVrkCxI0757DgEdU4tErOietE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
