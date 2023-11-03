@@ -20,7 +20,7 @@ const Header = ({ leftIcon, leftonPress, rightIcon, rightonPress }) => {
         navigation.navigate('MyProfile');
     })
 
-    const onNotiPress = useCallback(async()=>{
+    const onNotiPress = useCallback(async () => {
 
     })
 
@@ -38,12 +38,12 @@ const Header = ({ leftIcon, leftonPress, rightIcon, rightonPress }) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.flex}>
-            <TouchableOpacity onPress={onNotiPress} activeOpacity={0.5}>
+                {/* <TouchableOpacity onPress={onNotiPress} activeOpacity={0.5}>
                 <Image source={ImagePath.bell} style={[styles.righticon, { tintColor: appData?.color_theme }]} />
-            </TouchableOpacity>
-            <TouchableOpacity style={{marginLeft:15}}  onPress={onRightPress} activeOpacity={0.5}>
-                <Image source={ImagePath.user_round} style={[styles.righticon, { tintColor: appData?.color_theme }]} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+                <TouchableOpacity style={{ marginLeft: 15 }} onPress={onRightPress} activeOpacity={0.5}>
+                    <Image source={ImagePath.user_round} style={[styles.righticon, { tintColor: appData?.color_theme }]} />
+                </TouchableOpacity>
             </View>
             {/* {(rightIcon) && (
                 <TouchableOpacity onPress={() => rightonPress()} disabled={!rightonPress} activeOpacity={0.5}>

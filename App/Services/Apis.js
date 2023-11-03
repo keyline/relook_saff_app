@@ -35,4 +35,11 @@ export default class Apis {
         return Network('post', 'change-password', data)
     }
 
+    static order_list = (data) => {
+        return Network('post', 'room-service-order', data)
+    }
+
+    static update_order_status = (data) => {
+        return Network('post', 'change-order-status', data)
+    }
 }

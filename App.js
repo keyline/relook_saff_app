@@ -178,64 +178,58 @@ const App = () => {
   }
 
   const onClearStoreData = async () => {
-    let value = await clearUserData();
-    if (value) {
-      setState(prevState => ({
-        ...prevState,
-        isLogin: false,
-        userdata: null,
-        accesstoken: null,
-        userProfile: null
-      }))
-    } else {
-      if (__DEV__) {
-        console.log('AsyncStorage Error')
-      }
-    }
+    setState(prevState => ({
+      ...prevState,
+      isLogin: false,
+      userdata: null,
+      accesstoken: null,
+      userProfile: null
+    }))
+    await clearUserData();
   }
 
-  const onGetProfileData = useCallback(async () => {
-    try {
-      let datas = {
-        key: KEY,
-        source: SOURCE
-      }
-      const response = await Apis.profile_get(datas);
-      if (__DEV__) {
-        console.log('AppMyProfile', JSON.stringify(response))
-      }
-      if (response.status) {
-        setState(prev => ({
-          ...prev,
-          userProfile: response?.data
-        }))
-      } else {
-        ToastMessage(response?.message);
-      }
-    } catch (error) {
-      if (__DEV__) {
-        console.log(error)
-      }
-      ToastError();
+const onGetProfileData = useCallback(async () => {
+  try {
+    let datas = {
+      key: KEY,
+      source: SOURCE
     }
-  })
+    const response = await Apis.profile_get(datas);
+    if (__DEV__) {
+      console.log('AppMyProfile', JSON.stringify(response))
+    }
+    if (response.status) {
+      setState(prev => ({
+        ...prev,
+        userProfile: response?.data
+      }))
+    } else {
+      ToastMessage(response?.message);
+    }
+  } catch (error) {
+    if (__DEV__) {
+      console.log(error)
+    }
+    ToastError();
+  }
+})
 
-  return (
-    <AuthContext.Provider value={{ allData: state, onClearStoreData, onGetStoreData }}>
-      <NavigationContainer ref={navigationRef}>
-        {(!state.loading) && (
-          <>
-            {(state.isLogin) ?
-              // <DrawerStack />
-              <MainStack />
-              :
-              <AuthStack />
-            }
-          </>
-        )}
-      </NavigationContainer>
-    </AuthContext.Provider>
-  )
+return (
+  <AuthContext.Provider value={{ allData: state, onClearStoreData, onGetStoreData }}>
+    <NavigationContainer ref={navigationRef}>
+      {(!state.loading) && (
+        <>
+          {(state.isLogin) ?
+            // <DrawerStack />
+            <MainStack />
+            :
+            <AuthStack />
+          }
+        </>
+      )}
+    </NavigationContainer>
+  </AuthContext.Provider>
+)
 }
 
 export default App
