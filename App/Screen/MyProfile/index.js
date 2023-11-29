@@ -76,7 +76,7 @@ const MyProfile = ({ navigation }) => {
     })
 
     const menuList = [
-        { id: 2, name: 'Notification', screen: 'Notification', logo: ImagePath.bell },
+        // { id: 2, name: 'Notification', screen: 'Notification', logo: ImagePath.bell },
         { id: 3, name: 'Change Password', screen: 'ChangePassword', logo: ImagePath.lock },
         { id: 4, name: 'Sign Out', screen: 'SignOut', logo: ImagePath.logout },
     ]

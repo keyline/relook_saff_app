@@ -18,6 +18,7 @@ export const Notification = async (title, body, data) => {
         // console.log('channel', channelId)
         // Display a notification
         await notifee.displayNotification({
+            id:'relook_staff',
             title: title,
             body: body,
             data: data ? data : {},

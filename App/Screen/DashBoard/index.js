@@ -141,18 +141,26 @@ const DashBoard = ({ navigation }) => {
                 console.log('UpdateOrder', JSON.stringify(res))
             }
             if (res.status) {
-                let findIndex = state.data.findIndex(obj => obj?.ordered_item_id === item?.ordered_item_id)
-                if (findIndex !== -1) {
-                    if (item?.status == "0") {
-                        state.data[findIndex].status = "1"
-                        state.data[findIndex].staff_id = userdata?.user_id
-                    } else if (item?.status == "1") {
-                        state.data[findIndex].status = "2"
-                        state.data[findIndex].staff_id = userdata?.user_id
+                // let findIndex = state.data.findIndex(obj => obj?.ordered_item_id === item?.ordered_item_id)
+                // if (findIndex !== -1) {
+                //     if (item?.status == "0") {
+                //         state.data[findIndex].status = "1"
+                //         state.data[findIndex].staff_id = userdata?.user_id
+                //     } else if (item?.status == "1") {
+                //         state.data[findIndex].status = "2"
+                //         state.data[findIndex].staff_id = userdata?.user_id
+                //     }
+                // }
+                let updateArray = state.data.map(obj => {
+                    if (obj.order_id === item.order_id) {
+                        return { ...obj, status: item?.status == "0" ? "1" : "2", staff_id: userdata?.user_id }
                     }
-                }
+                    return obj;
+                });
+                // console.log('updateArray', JSON.stringify(updateArray))
                 setState(prev => ({
                     ...prev,
+                    data: updateArray,
                     loading: false
                 }))
             } else {
