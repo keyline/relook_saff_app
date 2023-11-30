@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, FlatList, RefreshControl } from 'react-native'
-import React, { useCallback, useContext, useState, useEffect } from 'react'
+import { View, Text, SafeAreaView, FlatList, RefreshControl, AppState } from 'react-native'
+import React, { useCallback, useContext, useState, useEffect, useRef } from 'react'
 import Header from '../../Component/Header'
 import { ImagePath } from '../../Utils/ImagePath'
 import { CommonStyle } from '../../Utils/CommonStyle'
@@ -51,15 +51,31 @@ const DashBoard = ({ navigation }) => {
         userID: '',
         data: [],
     })
+    const appState = useRef(AppState.currentState);
 
     useEffect(() => {
-        const unsubscribe = messaging().onMessage(async remoteMessage => {
+        const subscription = AppState.addEventListener('change', nextAppState => {
+            if (
+                appState.current.match(/inactive|background/) &&
+                nextAppState === 'active'
+            ) {
+                // console.log('App has come to the foreground!');
+                onGetData();
+            }
+            appState.current = nextAppState;
+        });
+
+        return () => subscription.remove();
+    }, []);
+
+    useEffect(() => {
+        const unsubscribes = messaging().onMessage(async remoteMessage => {
             if (__DEV__) {
                 console.log('ForgroundMessagedash', JSON.stringify(remoteMessage));
             }
             onGetData(true);
         })
-        return unsubscribe
+        return () => unsubscribes
     }, [])
 
     useFocusEffect(
@@ -68,6 +84,8 @@ const DashBoard = ({ navigation }) => {
             return () => unsubscribe
         }, [navigation])
     )
+
+
 
     const onGetData = useCallback(async (loading = true) => {
         try {
