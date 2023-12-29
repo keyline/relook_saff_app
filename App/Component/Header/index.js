@@ -40,7 +40,13 @@ const Header = ({ leftIcon, leftonPress, rightIcon, rightonPress }) => {
             <View style={styles.flex}>
                 {/* <TouchableOpacity onPress={onNotiPress} activeOpacity={0.5}>
                 <Image source={ImagePath.bell} style={[styles.righticon, { tintColor: appData?.color_theme }]} />
-            </TouchableOpacity> */}
+                </TouchableOpacity> */}
+                {(userProfile) && (
+                    <View>
+                        <Text style={[styles.nametext, { color: appData?.color_theme }]}>Hi, {userProfile?.name}</Text>
+                        <Text style={[styles.desctext, { color: appData?.color_theme }]}>{userProfile?.hotel?.name}, {userProfile?.staff_type}</Text>
+                    </View>
+                )}
                 <TouchableOpacity style={{ marginLeft: 15 }} onPress={onRightPress} activeOpacity={0.5}>
                     <Image source={ImagePath.user_round} style={[styles.righticon, { tintColor: appData?.color_theme }]} />
                 </TouchableOpacity>

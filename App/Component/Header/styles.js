@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../Utils/Colors";
+import { Font_Family } from "../../Utils/Fonts";
 
 export const styles = StyleSheet.create({
     container: {
@@ -29,5 +30,15 @@ export const styles = StyleSheet.create({
         width: 120,
         height: 40,
         resizeMode: 'contain'
+    },
+    nametext: {
+        fontFamily: Font_Family.NunitoSans_Bold,
+        fontSize: 14,
+        textAlign: 'right'
+    },
+    desctext: {
+        fontFamily: Font_Family.NunitoSans_Regular,
+        fontSize: 12,
+        textAlign: 'right'
     }
 })

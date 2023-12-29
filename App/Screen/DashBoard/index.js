@@ -214,7 +214,7 @@ const DashBoard = ({ navigation }) => {
             />
             <View style={{ flex: 1, marginVertical: '2%' }}>
                 <Text style={[CommonStyle.headingText, { textAlign: 'center', color: appData?.color_theme }]}>Request List</Text>
-                <View style={{ marginTop: '4%', paddingHorizontal: '4%' }}>
+                <View style={{ flex: 1, marginTop: '4%', paddingHorizontal: '4%' }}>
                     <FlatList
                         data={state.data.filter(obj => obj?.status != "2")}
                         keyExtractor={(item, index) => item.order_id}
@@ -224,7 +224,7 @@ const DashBoard = ({ navigation }) => {
                         }
                         ItemSeparatorComponent={ItemSeperator}
                         showsVerticalScrollIndicator={false}
-                        style={{ marginBottom: '15%', }}
+                        style={{ marginBottom: '15%', flex: 1 }}
                         refreshControl={<RefreshControl refreshing={false} onRefresh={onGetData} />}
                         ListEmptyComponent={<EmptyContent word={'No Order Found'} />}
                     />
