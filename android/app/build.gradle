@@ -73,12 +73,12 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.relook_staff"
+    namespace "com.relookstaff.keyline"
     defaultConfig {
-        applicationId "com.relook_staff"
+        applicationId "com.relookstaff.keyline"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 10
         versionName "1.0"
     }
     signingConfigs {

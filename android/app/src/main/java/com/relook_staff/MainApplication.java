@@ -1,4 +1,4 @@
-package com.relook_staff;
+package com.relookstaff.keyline;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

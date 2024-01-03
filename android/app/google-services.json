@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:272628901491:android:821a53e61c5a06926aac06",
+        "mobilesdk_app_id": "1:272628901491:android:236a104d61edc2716aac06",
         "android_client_info": {
-          "package_name": "com.relook_guest"
+          "package_name": "com.relookguest.keyline"
         }
       },
       "oauth_client": [],
@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:272628901491:android:c2eed556d2f66b8f6aac06",
+        "mobilesdk_app_id": "1:272628901491:android:5ccc6ded3a22b8fe6aac06",
         "android_client_info": {
-          "package_name": "com.relook_staff"
+          "package_name": "com.relookstaff.keyline"
         }
       },
       "oauth_client": [],
