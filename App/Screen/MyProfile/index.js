@@ -14,7 +14,7 @@ import LoaderNew from '../../Component/LoaderNew'
 const MyProfile = ({ navigation }) => {
 
     const context = useContext(AuthContext);
-    const { appData, accesstoken, isLogin, userProfile } = context.allData
+    const { appData, accesstoken, isLogin, userProfile, appVersion } = context.allData
 
     const [state, setState] = useState({
         loading: false,
@@ -181,6 +181,11 @@ const MyProfile = ({ navigation }) => {
                                 showsVerticalScrollIndicator={false}
                             />
                         </View>
+                    </View>
+                )}
+                {(appVersion) && (
+                    <View style={styles.versionContainer}>
+                        <Text style={[styles.versionText, { color: appData?.color_theme }]}>Version {appVersion}</Text>
                     </View>
                 )}
             </View>

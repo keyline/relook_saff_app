@@ -1,10 +1,11 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Colors } from '../../Utils/Colors'
+import { Font_Family } from '../../Utils/Fonts'
 
 
 export const styles = StyleSheet.create({
     content: {
-        flex:1,
+        flex: 1,
         marginTop: '3%',
         marginBottom: '4%'
     },
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
-        alignSelf:'center'
+        alignSelf: 'center'
     },
     mainContent: {
         paddingHorizontal: '6%',
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
     menuContainer: {
         flex: 1,
         marginHorizontal: '4%',
-        marginTop:'2%',
+        marginTop: '2%',
         marginBottom: '4%'
     },
     listcontent: {
@@ -71,9 +72,17 @@ export const styles = StyleSheet.create({
     },
     border: {
         width: '60%',
-        alignSelf:'center',
+        alignSelf: 'center',
         borderWidth: 0.5,
         borderColor: Colors.them_color,
         marginVertical: '5%'
+    },
+    versionContainer: {
+        alignSelf: 'center',
+        // paddingVertical: '4%'
+    },
+    versionText: {
+        fontFamily: Font_Family.NunitoSans_Regular,
+        fontSize: 12
     }
 })
