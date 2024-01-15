@@ -3,7 +3,6 @@ import React, { useCallback, useContext, useState, useEffect, useRef } from 'rea
 import Header from '../../Component/Header'
 import { ImagePath } from '../../Utils/ImagePath'
 import { CommonStyle } from '../../Utils/CommonStyle'
-import List from './List'
 import AuthContext from '../../Services/Context'
 import { useFocusEffect } from '@react-navigation/native'
 import { ToastError, ToastMessage } from '../../Services/CommonFunction'
@@ -14,32 +13,6 @@ import { getUserData } from '../../Services/AsyncStorage'
 import EmptyContent from '../../Component/EmptyContent'
 import messaging from '@react-native-firebase/messaging';
 import ListNew from './ListNew'
-
-
-const list = [
-    {
-        id: 1, rm_no: '122', status: 0, date: '03/11/2023', time: '10.12',
-        item: [
-            { ids: 1, name: 'Clean My Room', qty: 1 },
-            { ids: 1, name: 'Extra Bedsheet', qty: 2 },
-
-        ]
-    },
-    {
-        id: 2, rm_no: '122', task: 'Clean Room', status: 1, date: '03/11/2023', time: '10.30',
-        item: [
-            { ids: 1, name: 'Extra Pillow', qty: 1 },
-            { ids: 1, name: 'Extra Blanket', qty: 2 },
-
-        ]
-    },
-    // { id: 2, rm_no: '126', task: 'Extra Pillow X 2', status: 'Accepted', time: '12.12' },
-    // { id: 3, rm_no: '145', task: 'Extra Blanket X 1', status: 'Rejected', time: '18.12' },
-    // { id: 4, rm_no: '528', task: 'Extra Bedsheet X 2', status: 'Completed', time: '15.12' },
-    // { id: 5, rm_no: '428', task: 'Extra Pillow X 1', status: 'Pending', time: '22.12' },
-    // { id: 6, rm_no: '222', task: 'Clean Room', status: 'Accepted', time: '21.12' },
-
-]
 
 const DashBoard = ({ navigation }) => {
 
@@ -84,8 +57,6 @@ const DashBoard = ({ navigation }) => {
             return () => unsubscribe
         }, [navigation])
     )
-
-
 
     const onGetData = useCallback(async (loading = true) => {
         try {

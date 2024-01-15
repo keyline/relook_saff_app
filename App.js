@@ -1,5 +1,5 @@
-import { BackHandler } from 'react-native'
-import React, { useState, useCallback, useEffect } from 'react'
+import { Alert, AppState, BackHandler, Linking } from 'react-native'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import AuthStack from './App/Navigation/AuthStack'
 import { NavigationContainer } from '@react-navigation/native';
 import AuthContext from './App/Services/Context';
@@ -15,6 +15,8 @@ import { KEY, SOURCE } from './App/Services/Constant';
 import { ToastError, ToastMessage } from './App/Services/CommonFunction';
 import SplashScreen from 'react-native-splash-screen'
 import MainStack from './App/Navigation/MainStack';
+import VersionCheck from 'react-native-version-check';
+import { fetch as fetchPolyfill } from 'whatwg-fetch'
 
 const App = () => {
 
@@ -25,6 +27,55 @@ const App = () => {
     accesstoken: null,
     userProfile: null
   })
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        // console.log('App has come to the foreground!');
+        onAppUpdate();
+      }
+      appState.current = nextAppState;
+    });
+
+    return () => subscription.remove();
+  }, []);
+
+  const onAppUpdate = async () => {
+    global.fetch = fetchPolyfill
+    VersionCheck.needUpdate()
+      .then(async res => {
+        if (__DEV__) {
+          console.log('UpdateChecker', JSON.stringify(res))
+        }
+        if (res?.isNeeded && res?.storeUrl) {
+          Alert.alert(
+            'Update Available',
+            'A new version of the app is available. Please update for the best experience.',
+            [
+              {
+                text: 'Update Now',
+                onPress: () => Linking.openURL(res?.storeUrl)
+              }
+            ],
+            { cancelable: false }
+          )
+        } else {
+          // No update is required
+          if (__DEV__) {
+            console.log('You are using the latest version.');
+          }
+        }
+      })
+      .catch(err => {
+        if (__DEV__) {
+          console.error('Error checking for updates:', err)
+        }
+      });
+  }
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -91,6 +142,7 @@ const App = () => {
   useEffect(() => {
     onGetData();
     onGetDeviceToken();
+    onAppUpdate();
     // onGetStoreData();
   }, [])
 
@@ -188,48 +240,48 @@ const App = () => {
     await clearUserData();
   }
 
-const onGetProfileData = useCallback(async () => {
-  try {
-    let datas = {
-      key: KEY,
-      source: SOURCE
+  const onGetProfileData = useCallback(async () => {
+    try {
+      let datas = {
+        key: KEY,
+        source: SOURCE
+      }
+      const response = await Apis.profile_get(datas);
+      if (__DEV__) {
+        console.log('AppMyProfile', JSON.stringify(response))
+      }
+      if (response.status) {
+        setState(prev => ({
+          ...prev,
+          userProfile: response?.data
+        }))
+      } else {
+        ToastMessage(response?.message);
+      }
+    } catch (error) {
+      if (__DEV__) {
+        console.log(error)
+      }
+      ToastError();
     }
-    const response = await Apis.profile_get(datas);
-    if (__DEV__) {
-      console.log('AppMyProfile', JSON.stringify(response))
-    }
-    if (response.status) {
-      setState(prev => ({
-        ...prev,
-        userProfile: response?.data
-      }))
-    } else {
-      ToastMessage(response?.message);
-    }
-  } catch (error) {
-    if (__DEV__) {
-      console.log(error)
-    }
-    ToastError();
-  }
-})
+  })
 
-return (
-  <AuthContext.Provider value={{ allData: state, onClearStoreData, onGetStoreData }}>
-    <NavigationContainer ref={navigationRef}>
-      {(!state.loading) && (
-        <>
-          {(state.isLogin) ?
-            // <DrawerStack />
-            <MainStack />
-            :
-            <AuthStack />
-          }
-        </>
-      )}
-    </NavigationContainer>
-  </AuthContext.Provider>
-)
+  return (
+    <AuthContext.Provider value={{ allData: state, onClearStoreData, onGetStoreData }}>
+      <NavigationContainer ref={navigationRef}>
+        {(!state.loading) && (
+          <>
+            {(state.isLogin) ?
+              // <DrawerStack />
+              <MainStack />
+              :
+              <AuthStack />
+            }
+          </>
+        )}
+      </NavigationContainer>
+    </AuthContext.Provider>
+  )
 }
 
 export default App
